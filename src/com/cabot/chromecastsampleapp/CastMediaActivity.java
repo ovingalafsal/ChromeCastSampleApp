@@ -43,7 +43,7 @@ public class CastMediaActivity extends ActionBarActivity {
 	private static final String TAG = CastMediaActivity.class.getSimpleName();
 	private static final int REQUEST_GMS_ERROR = 0;
 
-	// private static final String APP_ID = "BFEBD3F1";
+//	private static final String APP_ID = "5001E5A6";
 	private static final String APP_ID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
 
 	private CastDevice mSelectedDevice;
@@ -55,7 +55,8 @@ public class CastMediaActivity extends ActionBarActivity {
 	private MediaRouteSelector mMediaRouteSelector;
 	private MediaRouter.Callback mMediaRouterCallback;
 	private RemoteMediaPlayer mRemoteMediaPlayer;
-	private Button play;
+	private Button play,play2;
+	boolean isPlaying = false;
 
 	/**
 	 * Called when the activity is first created. Initializes the game with
@@ -84,7 +85,7 @@ public class CastMediaActivity extends ActionBarActivity {
 					public void onStatusUpdated() {
 						MediaStatus mediaStatus = mRemoteMediaPlayer
 								.getMediaStatus();
-						boolean isPlaying = mediaStatus.getPlayerState() == MediaStatus.PLAYER_STATE_PLAYING;
+						isPlaying = mediaStatus.getPlayerState() == MediaStatus.PLAYER_STATE_PLAYING;
 					}
 				});
 
@@ -103,7 +104,17 @@ public class CastMediaActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				Play();
+				Play(play,"http://dev2.cabotprojects.com/myl_dev/mylfiles/ads/video/1388750465NikeLebron.mp4");
+			}
+		});
+		
+		play2 = (Button) findViewById(R.id.play2);
+		play2.setEnabled(false);
+		play2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Play(play2,"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
 			}
 		});
 
@@ -188,18 +199,19 @@ public class CastMediaActivity extends ActionBarActivity {
 		} else {
 			if (mApiClient != null) {
 				if (mApiClient.isConnected()) {
-					if (mRemoteMediaPlayer != null) {
+					/*if (mRemoteMediaPlayer != null && isPlaying) {
 						try {
 							mRemoteMediaPlayer.pause(mApiClient);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 
-					}
+					}*/
 				}
 				disconnectApiClient();
 			}
 			play.setEnabled(false);
+			play2.setEnabled(false);
 			mMediaRouter.selectRoute(mMediaRouter.getDefaultRoute());
 		}
 	}
@@ -217,14 +229,18 @@ public class CastMediaActivity extends ActionBarActivity {
 	}
 
 	private void disconnectApiClient() {
-		if (mApiClient != null) {
-			try {
-				mRemoteMediaPlayer.stop(mApiClient);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			mApiClient.disconnect();
-			mApiClient = null;
+		play.setText("START");
+		play2.setText("START ANIMATION VIDEO");
+		if (mApiClient != null && mApiClient.isConnected()) {
+			/*if (mRemoteMediaPlayer != null && isPlaying) {
+				try {
+					mRemoteMediaPlayer.stop(mApiClient);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}*/
+				mApiClient.disconnect();
+				mApiClient = null;
 		}
 	}
 
@@ -277,7 +293,7 @@ public class CastMediaActivity extends ActionBarActivity {
 		}
 	}
 
-	private class ConnectionCallbacks implements
+	public class ConnectionCallbacks implements
 			GoogleApiClient.ConnectionCallbacks {
 		@Override
 		public void onConnectionSuspended(int cause) {
@@ -292,7 +308,7 @@ public class CastMediaActivity extends ActionBarActivity {
 		}
 	}
 
-	private class ConnectionFailedListener implements
+	public class ConnectionFailedListener implements
 			GoogleApiClient.OnConnectionFailedListener {
 		@Override
 		public void onConnectionFailed(ConnectionResult result) {
@@ -311,6 +327,7 @@ public class CastMediaActivity extends ActionBarActivity {
 			if (status.isSuccess()) {
 				Log.e(TAG, "ConnectionResultCallback: " + appMetaData.getName());
 				play.setEnabled(true);
+				play2.setEnabled(true);
 				try {
 					Cast.CastApi.setMessageReceivedCallbacks(mApiClient,
 							mRemoteMediaPlayer.getNamespace(),
@@ -327,7 +344,7 @@ public class CastMediaActivity extends ActionBarActivity {
 		}
 	}
 
-	private void Play() {
+	private void Play(Button play,String file) {
 		Log.e("Play **********", mApiClient.isConnected() + " ++++++++Status");
 		if (play.getText().toString().equalsIgnoreCase("PAUSE")) {
 			if (mApiClient != null) {
@@ -365,7 +382,7 @@ public class CastMediaActivity extends ActionBarActivity {
 						MediaMetadata.MEDIA_TYPE_MOVIE);
 				mediaMetadata.putString(MediaMetadata.KEY_TITLE, "My video");
 				MediaInfo mediaInfo = new MediaInfo.Builder(
-						"http://dev2.cabotprojects.com/myl_dev/mylfiles/ads/video/1388750465NikeLebron.mp4")
+						 file)
 						.setContentType("video/mp4")
 						.setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
 						.setMetadata(mediaMetadata).build();

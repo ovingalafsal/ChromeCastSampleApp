@@ -1251,17 +1251,19 @@ containing a value of this type.
         public static final int image=0x7f06002a;
         public static final int listMode=0x7f060005;
         public static final int list_item=0x7f06002c;
-        public static final int media_route_control_frame=0x7f060043;
-        public static final int media_route_disconnect_button=0x7f060044;
-        public static final int media_route_list=0x7f060040;
-        public static final int media_route_menu_item=0x7f060045;
-        public static final int media_route_volume_layout=0x7f060041;
-        public static final int media_route_volume_slider=0x7f060042;
+        public static final int listview=0x7f060040;
+        public static final int media_route_control_frame=0x7f060044;
+        public static final int media_route_disconnect_button=0x7f060045;
+        public static final int media_route_list=0x7f060041;
+        public static final int media_route_menu_item=0x7f060047;
+        public static final int media_route_volume_layout=0x7f060042;
+        public static final int media_route_volume_slider=0x7f060043;
         public static final int middle=0x7f060015;
         public static final int never=0x7f06000d;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
         public static final int play=0x7f06003f;
+        public static final int play2=0x7f060046;
         public static final int progress_circular=0x7f06001b;
         public static final int progress_horizontal=0x7f06001c;
         public static final int radio=0x7f060032;
@@ -1341,11 +1343,12 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int cast_screen=0x7f030017;
-        public static final int mr_media_route_chooser_dialog=0x7f030018;
-        public static final int mr_media_route_controller_dialog=0x7f030019;
-        public static final int mr_media_route_list_item=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
-        public static final int test=0x7f03001c;
+        public static final int media_router_discovery=0x7f030018;
+        public static final int mr_media_route_chooser_dialog=0x7f030019;
+        public static final int mr_media_route_controller_dialog=0x7f03001a;
+        public static final int mr_media_route_list_item=0x7f03001b;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
+        public static final int test=0x7f03001d;
     }
     public static final class menu {
         public static final int cast=0x7f0c0000;

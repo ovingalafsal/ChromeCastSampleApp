@@ -50,6 +50,7 @@ public class CastActivity extends ActionBarActivity implements OnClickListener{
 	HelloWorldChannel mHelloWorldChannel = new HelloWorldChannel();
 	RemoteMediaPlayer mRemoteMediaPlayer = new RemoteMediaPlayer();
 	Button play;
+	Button play2;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
